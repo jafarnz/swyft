@@ -9,7 +9,7 @@ const teamMembers = [
     role: "Developer",
     image: "/Jafar.jpg",
     description:
-      "Crafting digital experiences through web development, while exploring the intersections of technology, creative writing, game design, and music composition. Currently a Year 1 Information Technology student at Temasek Polytechnic.",
+      "Crafting digital experiences through web development, while exploring the intersections of technology, creative writing, game design, and music composition. Currently a Year 2 Information Technology student at Temasek Polytechnic.",
   },
   {
     name: "Koh Yun Xiang",
