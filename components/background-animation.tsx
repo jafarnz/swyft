@@ -16,6 +16,7 @@ export function BackgroundAnimation() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
   const [scrollY, setScrollY] = useState(0)
+  const [startBlurPosition, setStartBlurPosition] = useState(0)
   const { theme } = useTheme()
 
   // Initialize particles
@@ -44,9 +45,12 @@ export function BackgroundAnimation() {
     const handleResize = () => {
       if (canvasRef.current) {
         const canvas = canvasRef.current
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-        setDimensions({ width: window.innerWidth, height: window.innerHeight })
+        const width = window.innerWidth
+        const height = window.innerHeight
+        canvas.width = width
+        canvas.height = height
+        setDimensions({ width, height })
+        setStartBlurPosition(height)
       }
     }
 
@@ -155,8 +159,7 @@ export function BackgroundAnimation() {
     return () => cancelAnimationFrame(animationFrameId)
   }, [particles, dimensions, mousePos, theme, scrollY])
 
-  // Calculate blur based on scroll position, but only after the hero section
-  const startBlurPosition = window.innerHeight // Start blur after first viewport height
+  // Calculate blur based on scroll position
   const scrollPastHero = Math.max(0, scrollY - startBlurPosition)
   const blurAmount = Math.min(8, scrollPastHero * 0.01) // Max blur of 8px
   const backgroundOpacity = Math.min(0.8, scrollPastHero * 0.001)

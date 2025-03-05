@@ -1,90 +1,38 @@
-"use client"
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { BackgroundAnimation } from "@/components/background-animation"
-import { useEffect, useState } from "react"
+import { HeroSection } from "@/components/hero-section"
 
-const HomePage = () => {
-  const [scrollY, setScrollY] = useState(0)
+const projects = [
+  {
+    title: "TP Connect",
+    description: "A platform connecting Temasek Polytechnic students for peer learning and resource sharing.",
+    image: "/TPConnectImage1.png",
+    link: "https://tpconnect.xyz",
+  },
+  {
+    title: "SwiftViewer",
+    description: "Professional financial analytics platform for tracking cryptocurrencies and stocks. (Currently down due to lack of demand and unecessary resource consumption, feel free to look at UI.)",
+    image: "/SwyftViewerImage1.png",
+    link: "https://swyftviewer.vercel.app/",
+  },
+]
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  }
-
-  const projects = [
-    {
-      title: "TP Connect",
-      description: "A platform connecting Temasek Polytechnic students for peer learning and resource sharing.",
-      image: "/TPConnectImage1.png",
-      link: "https://tpconnect.xyz",
-    },
-    {
-      title: "SwiftViewer",
-      description: "Professional financial analytics platform for tracking cryptocurrencies and stocks. (Currently down due to lack of demand and unecessary resource consumption, feel free to look at UI.)",
-      image: "/SwyftViewerImage1.png",
-      link: "https://swyftviewer.vercel.app/",
-    },
-  ]
-
-  const opacity = Math.max(0, 1 - scrollY / 500)
-
+export default function HomePage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center relative overflow-hidden">
-        <div style={{ opacity }} className="absolute inset-0">
-          <BackgroundAnimation />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold font-space mb-6">Empowering Singapore's Digital Future</h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
-              We help small businesses in Singapore embrace digitalization and establish their online presence.
-            </p>
-            <div className="flex justify-center gap-4">
-              <Button size="lg" asChild>
-                <Link href="/contact">Get Started</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/projects">View Projects</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Projects Section */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
-          <motion.h2 {...fadeIn} className="text-3xl md:text-4xl font-bold text-center mb-12 font-space">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 font-space">
             Our Projects
-          </motion.h2>
+          </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-              >
+            {projects.map((project) => (
+              <div key={project.title}>
                 <Card className="overflow-hidden group">
                   <div className="relative h-64 overflow-hidden">
                     <Image
@@ -102,7 +50,7 @@ const HomePage = () => {
                     </Button>
                   </div>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -111,13 +59,7 @@ const HomePage = () => {
       {/* About Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center"
-          >
+          <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-space">Who We Are</h2>
             <p className="text-lg text-muted-foreground mb-8">
               We are three passionate students from Temasek Polytechnic on a mission to accelerate Singapore's digital
@@ -127,20 +69,14 @@ const HomePage = () => {
             <Button asChild>
               <Link href="/about">Learn More About Us</Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center"
-          >
+          <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-space">Ready to Go Digital?</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Let's work together to bring your business into the digital age. Contact us today to start your journey.
@@ -148,12 +84,10 @@ const HomePage = () => {
             <Button size="lg" asChild>
               <Link href="/contact">Get in Touch</Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>
   )
 }
-
-export default HomePage
 

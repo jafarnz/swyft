@@ -1,6 +1,5 @@
 "use client"
 import { motion } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -85,24 +84,6 @@ const ContactPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  }
-
   return (
     <div className="min-h-screen pt-20">
       <div className="container mx-auto px-4 py-12">
@@ -115,30 +96,29 @@ const ContactPage = () => {
           <p className="text-muted-foreground">Ready to transform your business? We're here to help.</p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants} className="space-y-6">
-            <div className="bg-[#111111] rounded-lg p-8 border border-zinc-800">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            <div className="bg-card rounded-lg p-8 border shadow-sm">
               <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Name</label>
+                    <label className="text-sm font-medium mb-2 block text-foreground">Name</label>
                     <Input
                       placeholder="Your name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="bg-[#0A0A0A] border-zinc-800"
+                      className="bg-input border-input-border"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Email</label>
+                    <label className="text-sm font-medium mb-2 block text-foreground">Email</label>
                     <Input
                       type="email"
                       placeholder="Your email"
@@ -146,30 +126,30 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="bg-[#0A0A0A] border-zinc-800"
+                      className="bg-input border-input-border"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Subject</label>
+                  <label className="text-sm font-medium mb-2 block text-foreground">Subject</label>
                   <Input
                     placeholder="Message subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="bg-[#0A0A0A] border-zinc-800"
+                    className="bg-input border-input-border"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Message</label>
+                  <label className="text-sm font-medium mb-2 block text-foreground">Message</label>
                   <Textarea
                     placeholder="Your message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="min-h-[150px] bg-[#0A0A0A] border-zinc-800"
+                    className="min-h-[150px] bg-input border-input-border"
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
@@ -179,22 +159,28 @@ const ContactPage = () => {
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-6"
+          >
             {contactInfo.map((info, index) => (
               <motion.div
                 key={info.title}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                className="p-6 rounded-lg bg-[#111111] border border-zinc-800"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-lg bg-card border shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start space-x-4">
                   <div className="p-3 rounded-full bg-primary/10">
                     <info.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-lg">{info.title}</h3>
+                    <h3 className="font-medium text-lg text-foreground">{info.title}</h3>
                     {info.link ? (
-                      <a href={info.link} className="text-muted-foreground hover:text-primary">
+                      <a href={info.link} className="text-muted-foreground hover:text-primary transition-colors">
                         {info.content}
                       </a>
                     ) : (
@@ -205,7 +191,7 @@ const ContactPage = () => {
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </div>
   )

@@ -26,7 +26,7 @@ const services = [
   },
 ]
 
-const ServicesPage = () => {
+export default function ServicesPage() {
   return (
     <div className="min-h-screen pt-20">
       <div className="container mx-auto px-4 py-12">
@@ -73,6 +73,4 @@ const ServicesPage = () => {
     </div>
   )
 }
-
-export default ServicesPage
 
