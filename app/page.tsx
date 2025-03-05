@@ -4,8 +4,20 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import { BackgroundAnimation } from "@/components/background-animation"
+import { useEffect, useState } from "react"
 
 const HomePage = () => {
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -21,17 +33,21 @@ const HomePage = () => {
     },
     {
       title: "SwiftViewer",
-      description: "Professional financial analytics platform for tracking cryptocurrencies and stocks.",
+      description: "Professional financial analytics platform for tracking cryptocurrencies and stocks. (Currently down due to lack of demand and unecessary resource consumption, feel free to look at UI.)",
       image: "/SwyftViewerImage1.png",
-      link: "https://swyftview.vercel.app",
+      link: "https://swyftviewer.vercel.app/",
     },
   ]
+
+  const opacity = Math.max(0, 1 - scrollY / 500)
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="h-screen flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/10 bg-grid-small" />
+        <div style={{ opacity }} className="absolute inset-0">
+          <BackgroundAnimation />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
